@@ -6,10 +6,6 @@ var router = require('./routes/transaction');
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-app.use((req, res, next) => {
-    console.log('afsijfhuyarwbguyjhsba');
-    next();
-})
 app.use(router);
 
 app.listen(process.env.PORT, function(){
