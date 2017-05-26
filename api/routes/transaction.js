@@ -5,12 +5,10 @@ var http = require('../util/http');
 
 var router = express.Router();
 
-router.route('/brokers/:broker/transactions/:transaction')
+router.route('/brokers/:brokerName/transactions/:transactionName')
   .post(function(req, res){ 
   //  {
-  //     brokerName: 'myCompany',
   //     brokerId: 1,
-  //     transactionName: 'getUserByTopic',
   //     transactionId: 11,
   //     processes: [
   //       {
@@ -19,13 +17,14 @@ router.route('/brokers/:broker/transactions/:transaction')
   //         method: 'GET'
   //       }
   //     ],
-  //     endpointUrl: 'http://brok.io/myCompany/getUsersByTopic'
   //   } 
 
     var transaction = req.body;
-    transaction.brokerName = req.params.broker;
-    transaction.transactionName = req.params.transaction;
+    transaction.brokerName = req.params.brokerName;
+    transaction.transactionName = req.params.transactionName;
+    transaction.endpointUrl = `127.0.0.1:3000/${req.params.brokerName}/${req.params.transactionName}`
 
+    console.log(transaction);
     Transaction.create(transaction)
       .then((doc) => {
         res.status(200).json(doc.toJSON());
@@ -49,10 +48,10 @@ router.route('/:brokerName/:transactionName')
       });
     })
     .post((req, res, next) => {
-      let process1 = req.transaction.processes[0];
-       http.request(process1.method, process1.requestUrl)
+      let operation1 = req.transaction.operations[0];
+       http.request(operation1.method, operation1.requestUrl)
        .then(response => {
-         req.process1 = response;
+         req.operation1 = response;
          next();
        })
        .catch(err => {
@@ -60,8 +59,8 @@ router.route('/:brokerName/:transactionName')
        });
     })
     .post((req, res) => {
-      console.log('req', req.process1);
-      res.status(200).json(JSON.parse(req.process1));
+      console.log('req', req.operation1);
+      res.status(200).json(JSON.parse(req.operation1));
     });
 
 module.exports = router; 

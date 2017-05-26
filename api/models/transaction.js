@@ -7,7 +7,7 @@ schema = new mongoose.Schema({
     brokerId: types.ObjectId,
     transactionName: String,
     transactionId: types.ObjectId,
-    processes: [
+    operations: [
         {
             name: String,
             requestUrl: String, 
