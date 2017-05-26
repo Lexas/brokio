@@ -18,7 +18,6 @@ class HomePage extends React.Component {
   }
 
   submitOperation(e){
-    debugger;
     e.preventDefault();
     this.props.actions.postOperation(this.state.url)
       .then(data => {
