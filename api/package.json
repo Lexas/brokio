@@ -1,0 +1,29 @@
+{
+  "name": "brokio",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js --debug-brk"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lexas/brokio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lexas/brokio/issues"
+  },
+  "homepage": "https://github.com/Lexas/brokio#readme",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.2",
+    "nodemon": "^1.11.0",
+    "underscore": "^1.8.3"
+  }
+}
