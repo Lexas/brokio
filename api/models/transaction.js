@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var types = Schema.Types;
 
 schema = new mongoose.Schema({
-    broker: String,
+    brokerName: String,
     brokerId: types.ObjectId,
     transactionName: String,
     transactionId: types.ObjectId,
@@ -11,6 +11,7 @@ schema = new mongoose.Schema({
         {
             name: String,
             requestUrl: String, 
+            method: String,
         }
     ],
     endpointUrl: String 
