@@ -12,6 +12,6 @@ app.use((req, res, next) => {
 })
 app.use(router);
 
-app.listen(3000, function(){
-    console.log('There ya go!');
+app.listen(process.env.PORT, function(){
+    console.log('Brok.io is running on '+ process.env.NODE_ENV+' mode on port '+ process.env.PORT);
 });
