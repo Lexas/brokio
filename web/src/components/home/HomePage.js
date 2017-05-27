@@ -90,11 +90,11 @@ class HomePage extends React.Component {
 
     switch (targetArray) {
       case 'requestBodyMap':
-        newState[targetArray] = this.state[targetArray].concat([{paramName: 'default', paramValue: 'default'}]);
+        newState[targetArray] = this.state[targetArray].concat([{key: 'default', value: 'default'}]);
         break;
 
       case 'outputMap':
-        newState[targetArray] = this.state[targetArray].concat([{originalName: 'default', myCustomName: 'default'}]);
+        newState[targetArray] = this.state[targetArray].concat([{value: 'default', key: 'default'}]);
         break;
 
       default:
@@ -182,8 +182,8 @@ class HomePage extends React.Component {
               <tbody>
               {this.state.requestBodyMap.map((field, index)=>
                 <tr key={index}>
-                  <td><input type="text" onChange={(e) => this.setRequestBodyFields(e, index)} id="paramName" className="form-control"/></td>
-                  <td><input type="text" onChange={(e) => this.setRequestBodyFields(e, index)} id="paramValue" className="form-control"/></td>
+                  <td><input type="text" onChange={(e) => this.setRequestBodyFields(e, index)} id="key" className="form-control"/></td>
+                  <td><input type="text" onChange={(e) => this.setRequestBodyFields(e, index)} id="value" className="form-control"/></td>
                 </tr>
               )}
               </tbody>
@@ -203,8 +203,8 @@ class HomePage extends React.Component {
               <tbody>
               {this.state.outputMap.map((field, index)=>
                 <tr key={index}>
-                  <td><input type="text" onChange={(e) => this.setOutputFields(e, index)} id="originalName" className="form-control"/></td>
-                  <td><input type="text" onChange={(e) => this.setOutputFields(e, index)} id="myCustomName" className="form-control"/></td>
+                  <td><input type="text" onChange={(e) => this.setOutputFields(e, index)} id="value" className="form-control"/></td>
+                  <td><input type="text" onChange={(e) => this.setOutputFields(e, index)} id="key" className="form-control"/></td>
                 </tr>
               )}
               </tbody>
