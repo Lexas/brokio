@@ -1,5 +1,6 @@
 
 var request = require('request-promise');
+var jp = require('../util/jsonPath');
 
 exports.request = (method, url) => {
     return request({
@@ -8,6 +9,7 @@ exports.request = (method, url) => {
       headers: {
           'User-Agent': 'brokio',
           'Accept': 'application/json'
-      }
+      },
+      json: true,
     });
 };

@@ -12,9 +12,10 @@ schema = new mongoose.Schema({
             name: String,
             requestUrl: String, 
             method: String,
-        }
+            outputMap: Object,
+        },
     ],
-    endpointUrl: String 
+    endpointUrl: String,
 });
 
 module.exports = mongoose.model('transaction', schema)
