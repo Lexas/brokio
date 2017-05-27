@@ -4,7 +4,8 @@ var Transaction = require('../models/transaction');
 var transactionEngine = require('../engine/transaction');
 
 var router = express.Router();
-
+router.route('/test').post((req, res) => res.send('POST'))
+.get((req, res) => res.send('GET'))
 router.route('/brokers/:brokerName/transactions/:transactionName')
   .post(function(req, res){ 
   //  {

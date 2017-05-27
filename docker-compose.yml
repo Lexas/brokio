@@ -13,6 +13,7 @@ services:
       - PORT=3000
     networks:
       - back-end
+      - front-end
     command: /bin/bash -c "npm install && npm run dev"
   web:
     image: 'node:6.9'

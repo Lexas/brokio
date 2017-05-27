@@ -13,7 +13,8 @@ exports.map = (data, mapping) => {
 };
 
 exports.interpolate = (value, store) => {
-  return value.replace(/\{+([^}]*)\}+/, (match, submatch) => {
+  const replacementRegex = new RegExp(/\{{2}([^}]*)\}{2}/, 'g');
+  return value.replace(replacementRegex, (match, submatch) => {
     return jp.query(store, `$.${submatch}`)[0];
   });
 };

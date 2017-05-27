@@ -2,10 +2,13 @@
 var request = require('request-promise');
 var jp = require('../util/jsonPath');
 
-exports.request = (method, url) => {
+var sa = require('superagent');
+
+exports.request = (method, url, body) => {
     return request({
       uri: url,
       method,
+      body: body,
       headers: {
           'User-Agent': 'brokio',
           'Accept': 'application/json'
@@ -13,3 +16,4 @@ exports.request = (method, url) => {
       json: true,
     });
 };
+
