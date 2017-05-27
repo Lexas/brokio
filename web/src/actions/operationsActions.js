@@ -1,12 +1,12 @@
 //import * as types from './actionTypes';
 const Request = require('superagent');
 
-export function postOperation(url) {
+export function postOperation(state) {
   return dispatch => {
     return new Promise(function (resolve, reject) {
       Request
-        .post(`http://localhost:3000/transaction`)
-        .send(url)
+        .post(createUrlFromState(state))
+        .send(state.operations)
         .end((err, res) => {
           if (err) {
             return reject(err);
@@ -15,4 +15,12 @@ export function postOperation(url) {
         });
     });
   };
+}
+
+function createUrlFromState(state) {
+  return `http://localhost:3000/brokers/${state.brokerName}/transactions/${state.transactionName}`;
+}
+
+function createPayload(state) {
+  return { operations: [{ name: state.name, requestUrl: state.operationUrl, method: state.method }]};
 }
