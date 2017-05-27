@@ -6,7 +6,7 @@ export function postOperation(state) {
     return new Promise(function (resolve, reject) {
       Request
         .post(createUrlFromState(state))
-        .send(state.operations)
+        .send({ operations: state.operations })
         .end((err, res) => {
           if (err) {
             return reject(err);

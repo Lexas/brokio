@@ -18,12 +18,13 @@ class HomePage extends React.Component {
     this.state = {
       brokerName: '',
       transactionName: '',
-      operationName: '',
-      operationUrl: '',
+      name: '',
+      requestUrl: '',
       method: '',
-      outputFields: [],
+      outputMap: [],
       requestBodyMap: [],
-      operations: []
+      operations: [],
+      endpointUrl: ''
     };
   }
 
@@ -36,14 +37,15 @@ class HomePage extends React.Component {
     // the array of operations is part of the app state
     // so we remove the operations array, before pushing the acutal operation object
     delete operation.operations;
+    delete operation.endpointUrl;
 
     arrayOfOperations.push(operation);
 
     this.setState({
-      operationName: '',
-      operationUrl: '',
+      name: '',
+      requestUrl: '',
       method: '',
-      outputFields: [],
+      outputMap: [],
       requestBodyMap: [],
       operations: arrayOfOperations
     });
@@ -62,11 +64,11 @@ class HomePage extends React.Component {
 
     let targetId = e.target.id;
     let value = e.target.value;
-    let currentFields = this.state.outputFields;
+    let currentFields = this.state.outputMap;
     currentFields[index][targetId] = e.target.value;
 
     this.setState({
-      outputFields: currentFields
+      outputMap: currentFields
     });
   }
 
@@ -91,7 +93,7 @@ class HomePage extends React.Component {
         newState[targetArray] = this.state[targetArray].concat([{paramName: 'default', paramValue: 'default'}]);
         break;
 
-      case 'outputFields':
+      case 'outputMap':
         newState[targetArray] = this.state[targetArray].concat([{originalName: 'default', myCustomName: 'default'}]);
         break;
 
@@ -107,6 +109,9 @@ class HomePage extends React.Component {
     this.props.actions.postOperation(this.state)
       .then(data => {
         console.log("data", data);
+        this.setState({
+          endpointUrl: data.endpointUrl
+        });
       })
       .catch(error => {
         console.log("error", error);
@@ -141,20 +146,20 @@ class HomePage extends React.Component {
           {/* This is gonna be a component called Operations */}
           <h4>Operations</h4>
           <div className="form-group">
-            <label htmlFor="operationName">Name:</label>
+            <label htmlFor="name">Name:</label>
             <input type="text"
                    onChange={this.handleInputChange}
-                   value={this.state.operationName}
+                   value={this.state.name}
                    className="form-control"
-                   id="operationName"/>
+                   id="name"/>
           </div>
           <div className="form-group">
-            <label htmlFor="operationUrl">URL:</label>
+            <label htmlFor="requestUrl">URL:</label>
             <input type="text"
                    onChange={this.handleInputChange}
-                   value={this.state.operationUrl}
+                   value={this.state.requestUrl}
                    className="form-control"
-                   id="operationUrl"/>
+                   id="requestUrl"/>
           </div>
           <div className="form-group">
             <label htmlFor="method">Method:</label>
@@ -186,7 +191,7 @@ class HomePage extends React.Component {
           </div>
           <hr/>
           <div>
-            <h5>Custom response &nbsp;<i onClick={this.addField} className="glyphicon glyphicon-plus" id="outputFields"></i></h5>
+            <h5>Custom response &nbsp;<i onClick={this.addField} className="glyphicon glyphicon-plus" id="outputMap"></i></h5>
             <br/>
             <table className="table table-bordered table-condensed" id="myDesiredResponse">
               <thead>
@@ -196,14 +201,14 @@ class HomePage extends React.Component {
               </tr>
               </thead>
               <tbody>
-              {this.state.outputFields.map((field, index)=>
+              {this.state.outputMap.map((field, index)=>
                 <tr key={index}>
                   <td><input type="text" onChange={(e) => this.setOutputFields(e, index)} id="originalName" className="form-control"/></td>
                   <td><input type="text" onChange={(e) => this.setOutputFields(e, index)} id="myCustomName" className="form-control"/></td>
                 </tr>
               )}
               </tbody>
-            </table>q
+            </table>
           </div>
           <div>
             <button type="submit" className="btn btn-default">Add</button>
@@ -220,7 +225,7 @@ class HomePage extends React.Component {
             <tbody>
             {this.state.operations.map((operation, index) =>
               <tr key={index}>
-                <td>{operation.operationName}</td>
+                <td>{operation.name}</td>
               </tr>
             )}
             </tbody>
@@ -229,6 +234,10 @@ class HomePage extends React.Component {
         <div>
           <button type="submit" onClick={this.submitTransaction} className="btn btn-default">Submit transaction</button>
         </div>
+        {this.state.endpointUrl &&
+        <div>
+          <h1>{this.state.endpointUrl}</h1>
+        </div>}
       </div>
 
     );
