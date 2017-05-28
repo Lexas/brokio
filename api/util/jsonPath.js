@@ -5,8 +5,9 @@ const _ = require('lodash');
 exports.map = (data, mapping) => {
   const out = {};
 
-  _.forOwn(mapping, (val, key) => {
-    out[key] = jp.query(data, `$.${val}`)[0];
+  _.forEach(mapping, (val, index) => {
+    console.log(val);
+    out[val.key] = jp.query(data, `$.${val.value}`)[0];
   });
 
   return out;
